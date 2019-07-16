@@ -1,7 +1,21 @@
-// Exception thrown when an attempt is made to
-// use an Iter that exceeds the range of the
-// underlying object.
-//
+/**
+ * @file: gc_iterator.h
+ *
+ * @brief:
+ * 	CppND-Garbage-Collector:  
+ * 	  Exception thrown when an attempt is made to use an Iter that exceeds the range of the
+ *    underlying object.
+ *     
+ * @ingroup:
+ * 	CppND-Garbage-Collector
+ *
+ * @author:
+ * 	Eva Liu - evaliu2046@gmail.com
+ * 
+ * @date:
+ * 	2019/Jul/15
+ *
+ */
 class OutOfRangeExc
 {
     // Add functionality if needed by your application.

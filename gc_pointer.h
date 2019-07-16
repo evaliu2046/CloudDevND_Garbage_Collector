@@ -36,7 +36,7 @@ private:
         to an allocated array. It is false
         otherwise. 
     */
-    bool isArray const {return (addr == nullptr);} 
+    bool isArray() {return (addr == nullptr);} 
     // true if pointing to array
     // If this Pointer is pointing to an allocated
     // array, then arraySize contains its size.
@@ -128,8 +128,6 @@ Pointer<T,size>::Pointer(T *t){
     first = true;
     addr = t;
     arraySize = 1;
-    // TODO: Implement Pointer constructor
-    // Lab: Smart Pointer Project Lab
 }
 
 
@@ -146,18 +144,16 @@ template< class T, int size>
 Pointer<T,size>::Pointer(const Pointer &ob){
     typename std::list<PtrDetails<T> >::iterator p;
     p = findPtrInfo(ob.addr);
+    p->refcount++;
 
-    Pointer temp = new Pointer;
-    temp_p = findPtrInfo(temp.addr);
-    Pointer start = temp;
-    for (p = refContainer.begin(); p != refContainer.end(); p++){
-        temp_p->refCount++;
-        temp_p->arraySize++;
-        temp_p->memPtr = p->memPtr;
+    if (p->isArray()){
+        //refContainer.push_back(ob.addr);
+        p->memPtr = ob.addr;
+        p->arraySize++;
+    } else {
+        p->memPtr = ob.addr;
+        //refContainer.push_back(p);
     }
-    ob = start;
-    // TODO: Implement Pointer constructor
-    // Lab: Smart Pointer Project Lab
 }
 
 
@@ -207,7 +203,7 @@ bool Pointer<T, size>::collect(){
 
             // Free memory unless the Pointer is null.
             if (p->memPtr){
-                if (p->isArray){
+                if (p->isArray()){
                     delete[] p->memPtr; // delete array
                 } else {
                     delete p->memPtr; // delete single element
@@ -256,11 +252,13 @@ Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
     if (p->refcount)
         p->refcount--; 
     
+    typename std::list<PtrDetails<T> >::iterator temp_p;
     temp_p = findPtrInfo(rv.addr);
     if (temp_p->refcount)
         temp_p->refcount++;
     
-    rv.addr = addr;
+    addr = rv.addr;
+    p->refcount++;
     return rv;
 }
 

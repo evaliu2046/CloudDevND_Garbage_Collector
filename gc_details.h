@@ -21,7 +21,7 @@ class PtrDetails
     unsigned refcount; // current reference count
     T *memPtr;         // pointer to allocated memory
     // isArray is true if memPtr points to an allocated array. It is false otherwise.
-    bool isArray const {return memPtr == nullptr};
+    bool isArray() {return (memPtr == nullptr);}
     
     // size of array
     unsigned arraySize;
@@ -39,12 +39,7 @@ class PtrDetails
  * @return: true/false
  */
 template <class T>
-bool operator==(const PtrDetails<T> &ob1,
-                const PtrDetails<T> &ob2)
+bool operator==(const PtrDetails<T> &ob1, const PtrDetails<T> &ob2)
 {
-    // TODO: Implement operator==
-    if ((ob1 == nullptr) && (ob2 == nullptr))
-        return true;
-    else 
-        return false;
+    return (ob1.memPtr == ob2.memPtr);
 }

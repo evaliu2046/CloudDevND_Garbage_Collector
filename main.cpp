@@ -1,3 +1,20 @@
+/**
+ * @file: main.cpp
+ *
+ * @brief:
+ * 	CppND-Garbage-Collector:  
+ * 	   Main function for the Garbage Collector.
+ *
+ * @ingroup:
+ * 	CppND-Garbage-Collector
+ *
+ * @author:
+ * 	Eva Liu - evaliu2046@gmail.com
+ * 
+ * @date:
+ * 	2019/Jul/15
+ *
+ */
 #include "gc_pointer.h"
 #include "LeakTester.h"
 

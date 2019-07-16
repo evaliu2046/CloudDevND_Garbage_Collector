@@ -1,4 +1,3 @@
-// MEMORY LEAKAGE TESTER
 /**
  * @file: LeakTester.h
  *
