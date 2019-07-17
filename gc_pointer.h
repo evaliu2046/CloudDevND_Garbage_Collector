@@ -125,9 +125,10 @@ Pointer<T,size>::Pointer(T *t){
     // Register shutdown() as an exit function.
     if (first)
         atexit(shutdown);
-    first = true;
+    first = false;
     addr = t;
-    arraySize = 1;
+    this->arraySize = 0;
+    delete t;
 }
 
 
@@ -230,8 +231,9 @@ template <class T, int size>
 T *Pointer<T, size>::operator=(T *t){
     typename std::list<PtrDetails<T> >::iterator p;
     p = findPtrInfo(addr);
-    addr = t;
-    return addr;
+    this->addr = t;
+    delete t;
+    return this->addr;
 }
 
 
@@ -259,7 +261,8 @@ Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
     
     addr = rv.addr;
     p->refcount++;
-    return rv;
+    delete rv;
+    return p;
 }
 
 // A utility function that displays refContainer.

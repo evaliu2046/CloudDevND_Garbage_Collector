@@ -25,7 +25,15 @@ class PtrDetails
     
     // size of array
     unsigned arraySize;
-    PtrDetails (T *cur_ptr = 0): memPtr(cur_ptr){}
+    
+    PtrDetails(T* _memPtr, unsigned _arraySize){
+        isArray = false;
+        if(_arraySize > 0){
+            isArray = true;
+            arraySize = _arraySize;
+        }
+        memPtr = _memPtr;
+    }
 };
 
 /**
@@ -41,5 +49,14 @@ class PtrDetails
 template <class T>
 bool operator==(const PtrDetails<T> &ob1, const PtrDetails<T> &ob2)
 {
-    return (ob1.memPtr == ob2.memPtr);
+    if(ob1.memPtr != ob2.memPtr){
+        return false;
+    }
+    if(ob1.refcount != ob2.refcount){
+        return false;
+    }
+    if(ob1.arraySize != ob2.arraySize){
+        return false;
+    }
+    return true;
 }
